@@ -9,26 +9,27 @@ const sections = [
     name: 'General',
     children: [
       {
-        id: 'playerlevel',
+        id: 'playerLevel',
         type: 'number',
         label: 'Player Level',
         style: { width: 60 },
       },
       {
-        id: 'loopsfilled',
+        id: 'loopsFilled',
         type: 'number',
         label: 'Loops Filled',
         style: { width: 80 },
       },
       { id: 'engineering', type: 'checkbox', label: 'Engineering Badge' },
       { id: 'ouroboros', type: 'checkbox', label: 'Ouroboros Unlocked' },
+      { id: 'knox', type: 'checkbox', label: 'Knox Unlocked' },
     ],
   },
   {
-    name: 'Loop Mod',
+    name: 'Loop Mods',
     children: [
       {
-        id: 'zeusrankbenefits',
+        id: 'zeusRankBenefits',
         type: 'number',
         label: 'Zeus Rank Benefits',
         max: 10,
@@ -42,7 +43,7 @@ const sections = [
         },
       },
       {
-        id: 'mathauling',
+        id: 'materialHauling',
         type: 'number',
         label: 'Material Hauling',
         text: '/ 999',
@@ -56,9 +57,9 @@ const sections = [
         },
       },
       {
-        id: 'beyonders',
+        id: 'ultimaBeyonders',
         type: 'number',
-        label: 'Rule of the Beyonders',
+        label: 'Ultima: Rule of the Beyonders',
         style: { width: 80 },
         info: {
           type: 'mod',
@@ -69,9 +70,9 @@ const sections = [
         },
       },
       {
-        id: 'swarm',
+        id: 'ultimaSwarm',
         type: 'number',
-        label: 'Rule of the Swarm',
+        label: 'Ultima: Rule of the Swarm',
         max: 30,
         text: '/ 30',
         info: {
@@ -83,9 +84,9 @@ const sections = [
         },
       },
       {
-        id: 'expansion',
+        id: 'ultimaExpansion',
         type: 'number',
-        label: 'Rule of Expansion',
+        label: 'Ultima: Rule of Expansion',
         style: { width: 80 },
         info: {
           type: 'mod',
@@ -96,9 +97,9 @@ const sections = [
         },
       },
       {
-        id: 'productivity',
+        id: 'ultimaProductivity',
         type: 'number',
-        label: 'Rule of Productivity',
+        label: 'Ultima: Rule of Productivity',
         max: 10,
         text: '/ 10',
         info: {
@@ -110,9 +111,9 @@ const sections = [
         },
       },
       {
-        id: 'looping',
+        id: 'ultimaLooping',
         type: 'number',
-        label: 'Rule of Looping',
+        label: 'Ultima: Rule of Looping',
         max: 10,
         text: '/ 10',
         info: {
@@ -124,9 +125,9 @@ const sections = [
         },
       },
       {
-        id: 'sekhur5',
+        id: 'ultimaSekhur5',
         type: 'number',
-        label: 'Planet Sekhur-5',
+        label: 'Ultima: Planet Sekhur-5',
         max: 1,
         text: '/ 1',
         isOuro: true,
@@ -135,6 +136,7 @@ const sections = [
   },
   {
     name: 'Zeus',
+    id: 'fleet.zeus',
     children: [
       { id: 'zeusrank', type: 'number', label: 'Rank' },
       { id: 'zeuscrew', type: 'number', label: 'Crew', style: { width: 60 } },
@@ -147,7 +149,7 @@ const sections = [
         style: { width: 70 },
       },
       {
-        id: 'zeusinstall3',
+        id: 'materialScavengerVehicles',
         type: 'number',
         label:
           '<label class="has-tip" data-bs-toggle="tooltip" data-bs-title="Material Scavenger Vehicles">Install 3</label>',
@@ -156,7 +158,7 @@ const sections = [
           '/ <label class="has-tip" data-bs-toggle="tooltip" data-bs-title="Starts at 1, changes over time">5</label> <span class="text-super">*</c>',
       },
       {
-        id: 'zeusinstall6',
+        id: 'academyAutoScrappers',
         type: 'number',
         label:
           '<label class="has-tip" data-bs-toggle="tooltip" data-bs-title="Academy Auto-Scrappers">Install 6</label>',
@@ -173,7 +175,7 @@ const sections = [
     children: [
       { id: 'ourocrew', type: 'number', label: 'Crew', style: { width: 60 } },
       {
-        id: 'ouroinstall5',
+        id: 'bioMaterialDuplicationTech',
         type: 'number',
         label:
           '<label class="has-tip" data-bs-toggle="tooltip" data-bs-title="Bio-Meterial Duplicatio Tech">Install 5</label>',
@@ -224,83 +226,83 @@ const sections = [
     name: 'Research',
     children: [
       {
-        id: 'mission1',
+        id: 'research43',
         type: 'select',
-        label: 'Mission Analysis 1',
+        label: 'Research 43',
         maxLevel: 6,
         text: 'Material:  Lv2 x1.5, Lv4 x1.5, Lv6 x1.5',
         textClassName: 'font-normal',
       },
       {
-        id: 'mission2',
+        id: 'research55',
         type: 'select',
-        label: 'Mission Analysis 2',
+        label: 'Research 55',
         maxLevel: 6,
         text: 'Material:  Lv2 x1.75, Lv4 x1.75, Lv6 x1.75',
         textClassName: 'font-normal',
       },
       {
-        id: 'mission3',
+        id: 'research58',
         type: 'select',
-        label: 'Mission Analysis 3',
+        label: 'Research 58',
         maxLevel: 6,
         text: 'Speed: Lv1 x1.05, Lv3: x1.05, Lv5: x1.05',
         textClassName: 'font-normal',
       },
       {
-        id: 'mission4',
+        id: 'research60',
         type: 'select',
-        label: 'Mission Analysis <s>4</s>3 <span class="text-super">1</c>',
-        maxLevel: 6,
-        text: 'Material:  Lv2 x2, Lv4 x3, Lv6 x4',
-        textClassName: 'font-normal',
-      },
-      {
-        id: 'mission5',
-        type: 'select',
-        label: 'Mission Analysis <s>5</s>4 <span class="text-super">2</c>',
-        maxLevel: 6,
-        text: 'Material:  Lv2 x3, Lv4 x4, Lv6 x5',
-        textClassName: 'font-normal',
-      },
-      {
-        id: 'perfection2',
-        type: 'select',
-        label: 'Perfection Analysis 2',
+        label: 'Research 60',
         maxLevel: 6,
         text: 'Material:  Lv2 x5',
         textClassName: 'font-normal',
       },
       {
-        id: 'perfection3',
+        id: 'research62',
         type: 'select',
-        label: 'Perfection Analysis <s>3</s>2 <span class="text-super">3</c>',
-        maxLevel: 6,
-        text: 'Lv2: Material x5; Lv5: Speed *2',
-        textClassName: 'font-normal',
-      },
-      {
-        id: 'perfection4',
-        type: 'select',
-        label: 'Perfection Analysis <s>4</s>3 <span class="text-super">4</c>',
-        maxLevel: 6,
-        text: 'Lv2: Material x9; Lv5: Speed *2',
-        textClassName: 'font-normal',
-      },
-      {
-        id: 'construction1',
-        type: 'select',
-        label: 'Construction Analysis 1',
+        label: 'Research 62',
         maxLevel: 6,
         text: 'Proj Cost: - , /1.5 , - , /2, - , /2.5',
         textClassName: 'font-normal',
       },
       {
-        id: 'construction2',
+        id: 'research67',
         type: 'select',
-        label: 'Construction Analysis 2',
+        label: 'Research 67',
+        maxLevel: 6,
+        text: 'Material:  Lv2 x2, Lv4 x3, Lv6 x4',
+        textClassName: 'font-normal',
+      },
+      {
+        id: 'research70',
+        type: 'select',
+        label: 'Research 70',
+        maxLevel: 6,
+        text: 'Lv2: Material x5; Lv5: Speed x2',
+        textClassName: 'font-normal',
+      },
+      {
+        id: 'research72',
+        type: 'select',
+        label: 'Research 72',
         maxLevel: 6,
         text: 'Proj Cost: - , /2 , /3 , /3 , /4 , /4',
+        textClassName: 'font-normal',
+      },
+      {
+        id: 'research77',
+        type: 'select',
+        label: 'Research 77',
+        maxLevel: 6,
+        text: 'Material:  Lv2 x3, Lv4 x4, Lv6 x5',
+        textClassName: 'font-normal',
+      },
+      {
+        id: 'research80',
+        type: 'select',
+        label: 'Research 80',
+        maxLevel: 6,
+        text: 'Lv2: Material x9; Lv5: Speed x1.5',
         textClassName: 'font-normal',
       },
     ].map((i) => {
@@ -348,269 +350,390 @@ const sections = [
         type: 'number',
         label: 'Creation Gem Node #3 Bonus',
       },
+      {
+        id: 'trait07',
+        type: 'checkbox',
+        label: 'Trait Sphere #07',
+      }
     ],
   },
+  {
+    name: 'Knox Effects',
+    isKnox: true,
+    children: [
+      {
+        id: 'gadgetExtractorDrill',
+        type: 'number',
+        label: 'Gadget: Heavy-duty Auto Extractor Drill',
+      },
+      {
+        id: 'gadgetFragmentMagnet',
+        type: 'number',
+        label: 'Gadget: Local Fragment Magnet',
+      },
+      {
+        id: 'necrumBonus',
+        type: 'number',
+        label: 'Necrum Exchange Bonus',
+        style: { width: 80 },
+      },
+      {
+        id: 'sowSireneMats',
+        type: 'number',
+        label: 'Spoils of War: Sirene-6'
+      }
+    ]
+  }
 ]
 
 academyEffectorPortal.pages.default.dataLinkage = {
-  set playerlevel(value) {
-    playerData.level = value
+  /*
+   * General
+   */
+  get playerLevel() {
+    return playerData.level
   },
-  set loopsfilled(value) {
-    playerData.loopsFilled = value
+  set playerLevel(value) {
+    playerData.general.level = value
   },
-  set zeusrankbenefits(value) {
+
+  get loopsFilled() {
+    return playerData.loopsFilled
+  },
+  set loopsFilled(value) {
+    playerData.general.loopsFilled = value
+  },
+
+  get engineering() {
+    return playerData.general.engineeringBadge
+  },
+  set engineering(value) {
+    playerData.general.engineeringBadge = value
+  },
+
+  get ouroboros() {
+    return playerData.general.ouroEnabled
+  },
+  set ouroboros(value) {
+    playerData.general.ouroEnabled = value
+  },
+
+  get knox() {
+    return playerData.general.knoxEnabled
+  },
+  set knox(value) {
+    return playerData.general.knoxEnabled = value
+  },
+
+  /*
+   * Loop Mods
+   */
+  get zeusRankBenefits() {
+    return playerData.loopMods.zeusRankBenefits
+  },
+  set zeusRankBenefits(value) {
     playerData.loopMods.zeusRankBenefits = value
   },
-  set mathauling(value) {
+
+  get materialHauling() {
+    return playerData.loopMods.materialHauling
+  },
+  set materialHauling(value) {
     playerData.loopMods.materialHauling = value
   },
-  set beyonders(value) {
+
+  get ultimaBeyonders() {
+    return playerData.loopMods.beyonders
+  },
+  set ultimaBeyonders(value) {
     playerData.loopMods.beyonders = value
   },
-  set swarm(value) {
+
+  get ultimaSwarm() {
+    return playerData.loopMods.swarm
+  },
+  set ultimaSwarm(value) {
     playerData.loopMods.swarm = value
   },
-  set expansion(value) {
+  
+  get ultimaExpansion() {
+    return playerData.loopMods.expansion
+  },
+  set ultimaExpansion(value) {
     playerData.loopMods.expansion = value
   },
-  set productivity(value) {
+  
+  get ultimaProductivity() {
+    return playerData.loopMods.productivity
+  },
+  set ultimaProductivity(value) {
     playerData.loopMods.productivity = value
   },
-  set looping(value) {
+  
+  get ultimaLooping() {
+    return playerData.loopMods.looping
+  },
+  set ultimaLooping(value) {
     playerData.loopMods.looping = value
   },
-  set sekhur5(value) {
+  
+  get ultimaSekhur5() {
+    return playerData.loopMods.sekhur5
+  },
+  set ultimaSekhur5(value) {
     playerData.loopMods.sekhur5 = value
   },
 
-  get playerlevel() {
-    return playerData.level
+  /*
+   * Ships
+   */
+  get zeuscrew() {
+    return playerData.fleet.zeus.crew
   },
-  get loopsfilled() {
-    return playerData.loopsFilled
-  },
-  get zeusrankbenefits() {
-    return playerData.loopMods.zeusRankBenefits
-  },
-  get mathauling() {
-    return playerData.loopMods.materialHauling
-  },
-  get beyonders() {
-    return playerData.loopMods.beyonders
-  },
-  get swarm() {
-    return playerData.loopMods.swarm
-  },
-  get expansion() {
-    return playerData.loopMods.expansion
-  },
-  get productivity() {
-    return playerData.loopMods.productivity
-  },
-  get looping() {
-    return playerData.loopMods.looping
-  },
-  get sekhur5() {
-    return playerData.loopMods.sekhur5
-  },
-
   set zeuscrew(value) {
     playerData.fleet.zeus.crew = value
+  },
+
+  get zeusrank() {
+    return playerData.fleet.zeus.rank.current
   },
   set zeusrank(value) {
     playerData.fleet.zeus.rank.current = value
   },
+
+  get zeusprogress() {
+    return playerData.fleet.zeus.rank.progress
+  },
   set zeusprogress(value) {
     playerData.fleet.zeus.rank.progress = value
   },
-  set zeusinstall3(value) {
-    playerData.fleet.zeus.installs[2] = value
+
+  get materialScavengerVehicles() {
+    return playerData.fleet.zeus.vehicles
   },
-  set zeusinstall6(value) {
-    playerData.fleet.zeus.installs[5] = value
+  set materialScavengerVehicles(value) {
+    playerData.fleet.zeus.vehicles = value
+  },
+
+  get academyAutoScrappers() {
+    return playerData.fleet.zeus.scrappers
+  },
+  set academyAutoScrappers(value) {
+    playerData.fleet.zeus.scrappers = value
+  },
+
+  get ourocrew() {
+    return playerData.fleet.ouro.crew
   },
   set ourocrew(value) {
     playerData.fleet.ouro.crew = value
   },
-  set ouroinstall5(value) {
-    playerData.fleet.ouro.installs[4] = value
+
+  get bioMaterialDuplicationTech() {
+    return playerData.fleet.ouro.bioMaterial
+  },
+  set bioMaterialDuplicationTech(value) {
+    playerData.fleet.ouro.bioMaterial = value
+  },
+
+  /*
+   * Academy
+   */
+  get warpdrive() {
+    return playerData.academy.projectLevels[5]
   },
   set warpdrive(value) {
     playerData.academy.projectLevels[5] = value
   },
-  set engineering(value) {
-    playerData.academy.badges.engineering = value
-  },
 
-  get zeuscrew() {
-    return playerData.fleet.zeus.crew
-  },
-  get zeusrank() {
-    return playerData.fleet.zeus.rank.current
-  },
-  get zeusprogress() {
-    return playerData.fleet.zeus.rank.progress
-  },
-  get zeusinstall3() {
-    return playerData.fleet.zeus.installs[2]
-  },
-  get zeusinstall6() {
-    return playerData.fleet.zeus.installs[5]
-  },
-  get ourocrew() {
-    return playerData.fleet.ouro.crew
-  },
-  get ouroinstall5() {
-    return playerData.fleet.ouro.installs[4]
-  },
-  get warpdrive() {
-    return playerData.academy.projectLevels[5]
-  },
-  get engineering() {
-    return playerData.academy.badges.engineering
-  },
 
+  /*
+   * Shard Milestones
+   */
+  get wonderous() {
+    return playerData.shardMilestones.wonderous
+  },
   set wonderous(value) {
-    playerData.shardMilestones[25] = value
+    playerData.shardMilestones.wonderous = value
+  },
+  get earthly() {
+    return playerData.shardMilestones.earthly
   },
   set earthly(value) {
-    playerData.shardMilestones[28] = value
+    playerData.shardMilestones.earthly = value
   },
-  set mission1(value) {
-    playerData.research.mission[0] = value
+
+  /*
+   * Researches
+   */
+  get research43() {
+    return playerData.research.r43
   },
-  set mission2(value) {
-    playerData.research.mission[1] = value
+  set research43(value) {
+    playerData.research.r43 = value
   },
-  set mission3(value) {
-    playerData.research.mission[2] = value
+
+  get research55() {
+    return playerData.research.r55
   },
-  set mission4(value) {
-    playerData.research.mission[3] = value
+  set research55(value) {
+    playerData.research.r55 = value
   },
-  set mission5(value) {
-    playerData.research.mission[4] = value
+
+  get research58() {
+    return playerData.research.r58
   },
-  set perfection1(value) {
-    playerData.research.perfection[0] = value
+  set research58(value) {
+    playerData.research.r58 = value
   },
-  set perfection2(value) {
-    playerData.research.perfection[1] = value
+
+  get research60() {
+    return playerData.research.r60
   },
-  set perfection3(value) {
-    playerData.research.perfection[2] = value
+  set research60(value) {
+    playerData.research.r60 = value
   },
-  set perfection4(value) {
-    playerData.research.perfection[3] = value
+
+  get research62() {
+    return playerData.research.r62
   },
-  set construction1(value) {
-    playerData.research.construction[0] = value
+  set research62(value) {
+    playerData.research.r62 = value
   },
-  set construction2(value) {
-    playerData.research.construction[1] = value
+
+  get research67() {
+    return playerData.research.r67
+  },
+  set research67(value) {
+    playerData.research.r67 = value
+  },
+
+  get research70() {
+    return playerData.research.r70
+  },
+  set research70(value) {
+    playerData.research.r70 = value
+  },
+
+  get research72() {
+    return playerData.research.r72
+  },
+  set research72(value) {
+    playerData.research.r72 = value
+  },
+
+  get research77() {
+    return playerData.research.r77
+  },
+  set research77(value) {
+    playerData.research.r77 = value
+  },
+
+  get research80() {
+    return playerData.research.r80
+  },
+  set research80(value) {
+    playerData.research.r80 = value
+  },
+
+  /*
+   * Diamonds
+   */
+  get specialmats() {
+    return playerData.diamonds.special.materials
   },
   set specialmats(value) {
     playerData.diamonds.special.materials = value
   },
+
+  get ultimamatbonus() {
+    return playerData.diamonds.ultima.materialBonus
+  },
   set ultimamatbonus(value) {
     playerData.diamonds.ultima.materialBonus = value
+  },
+
+  get iapCollector() {
+    return playerData.diamonds.iapCollector
   },
   set iapCollector(value) {
     playerData.diamonds.iapCollector = value
   },
 
-  get wonderous() {
-    return playerData.shardMilestones[25]
-  },
-  get earthly() {
-    return playerData.shardMilestones[28]
-  },
-  get mission1() {
-    return playerData.research.mission[0]
-  },
-  get mission2() {
-    return playerData.research.mission[1]
-  },
-  get mission3() {
-    return playerData.research.mission[2]
-  },
-  get mission4() {
-    return playerData.research.mission[3]
-  },
-  get mission5() {
-    return playerData.research.mission[4]
-  },
-  get perfection1() {
-    return playerData.research.perfection[0]
-  },
-  get perfection2() {
-    return playerData.research.perfection[1]
-  },
-  get perfection3() {
-    return playerData.research.perfection[2]
-  },
-  get perfection4() {
-    return playerData.research.perfection[3]
-  },
-  get construction1() {
-    return playerData.research.construction[0]
-  },
-  get construction2() {
-    return playerData.research.construction[1]
-  },
-  get specialmats() {
-    return playerData.diamonds.special.materials
-  },
-  get ultimamatbonus() {
-    return playerData.diamonds.ultima.materialBonus
-  },
-  get iapCollector() {
-    return playerData.diamonds.iapCollector
-  },
-
-  set ouroboros(value) {
-    playerData.ouro.enabled = value
+  /*
+   * Ouro Content
+   */
+  get meltdown() {
+    return playerData.ouro.meltdown
   },
   set meltdown(value) {
     playerData.ouro.meltdown = value
   },
+
+  get relic3() {
+    return playerData.relics.r3
+  },
   set relic3(value) {
-    playerData.relics.relic3 = value
+    playerData.relics.r3 = value
+  },
+
+  get relic5() {
+    return playerData.relics.r5
   },
   set relic5(value) {
-    playerData.relics.relic5 = value
+    playerData.relics.r5 = value
+  },
+
+  get relic20() {
+    return playerData.relics.r20
   },
   set relic20(value) {
-    playerData.relics.relic20 = value
+    playerData.relics.r20 = value
+  },
+
+  get darkinno() {
+    return playerData.ouro.darkInnovationBadge
   },
   set darkinno(value) {
-    playerData.academy.badges.darkInnovation = value
+    playerData.ouro.darkInnovationBadge = value
+  },
+
+  get creationgemnode3bonus() {
+    return playerData.ouro.gemCreationNode3Bonus
   },
   set creationgemnode3bonus(value) {
     playerData.ouro.gemCreationNode3Bonus = value
   },
 
-  get ouroboros() {
-    return playerData.ouro.enabled
+  /*
+   * Knox Content
+   */
+  get gadgetExtractorDrill() {
+    return playerData.knox.gadgets.extractorDrill
   },
-  get meltdown() {
-    return playerData.ouro.meltdown
+  set gadgetExtractorDrill(value) {
+    playerData.knox.gadgets.extractorDrill = value
   },
-  get relic3() {
-    return playerData.relics.relic3
+
+  get gadgetFragmentMagnet() {
+    return playerData.knox.gadgets.fragmentMagnet
   },
-  get relic5() {
-    return playerData.relics.relic5
+  set gadgetFragmentMagnet(value) {
+    playerData.knox.gadgets.fragmentMagnet = value
   },
-  get relic20() {
-    return playerData.relics.relic20
+
+  get necrumBonus() {
+    return playerData.knox.necrumBonus
   },
-  get darkinno() {
-    return playerData.academy.badges.darkInnovation
+  set necrumBonus(value) {
+    playerData.knox.necrumBonus = value
   },
-  get creationgemnode3bonus() {
-    return playerData.ouro.gemCreationNode3Bonus
+
+  get sowSireneMats() {
+    return playerData.loopMods.sowSireneMats
+  },
+  set sowSireneMats(value) {
+    playerData.loopMods.sowSireneMats = value
   },
 }
 
@@ -764,24 +887,11 @@ academyEffectorPortal.pages.default.initFunction = function (panel) {
       'Some researches are named wrong in-game, try match them with research bonus instead.',
     ]
 
-    const notes = [
-      "It's in-game mislabeled as Mission Analysis 3",
-      "It's in-game mislabeled as Mission Analysis 4",
-      "It's in-game mislabeled as Perfection Analysis 2",
-      "It's in-game mislabeled as Perfection Analysis 3",
-    ]
-
     $(
       '<div class="section-3 font-normal" style="font-size: 0.8em; max-width: 400px;">',
     )
       .append($('<h6>Tips</h6>'))
       .append($('<ol>').append(tips.map((tip) => $('<li>').text(tip))))
-      .append($('<h6>Notes</h6>'))
-      .append(
-        notes.map((note, i) => {
-          return $(`<p><span class="text-super">${i + 1}</span> : ${note}</p>`)
-        }),
-      )
       .appendTo(wrapper)
   } catch (e) {
     console.error(e)

@@ -10,31 +10,25 @@ const blankPlayer = {
   colorProfile: {
     academyProjects: ['#444444', '#CCCC44', '#44CC44', '#4444CC'],
   },
-  level: 0, // Player level
-  loopsFilled: 0,
+  general: {
+    level: 0, // Player level
+    loopsFilled: 0,
+    engineeringBadge: false,
+    ouroEnabled: false,
+    knoxEnabled: false,
+  },
   fleet: {
     zeus: {
       evo: 0,
       rank: { current: 0, progress: 0, goal: 1 },
       freePoints: 0,
       crew: 0,
-      installs: [
-        0, // Cells Gained *= (0.5 * [level] * [Missions Completed] * [Zeus Crew] + 1)
-        0, // AP Gained *= (0.1 * [level] * [Zeus Crew] + 1)
-        0, // Mission Materials *= (0.25 * [level] * [Zeus Crew] + 1)
-        0, // [Cells Gained, Shards Gained] *= (0.005 * [level] * [Missions Completed] * [Zeus Crew] + 1)
-        0, // [Cells Gained, RP Gained] *= (0.005 * [level] * [Missions Completed] * [Zeus Crew] + 1)
-        0, // [MP Gained, Mission Materials] *= (0.1 * [level] * [Zeus Crew] + 1)
-        0, // [All Gen Output, AP Gained] *= (0.01 * [level] * [Zeus Crew] + 1)
-        0, // All Gen Output *= (0.01 * [level] * [Missions Completed] * [Zeus Crew] + 1)
-        0, // Cells Gained *= (0.05 * [level] * [Missions Completed] * [Zeus Crew] + 1)
-        0, // RP Gained *= (0.01 * [level] * [Missions Completed] * [Zeus Crew] + 1)
-        0, // Shards Gained *= (0.01 * [level] * [Missions Completed] * [Zeus Crew] + 1)
-      ],
+      vehicles: 0, // Material Scavenger Vehicles [Mission Materials] *= (0.25 * [level] * [Zeus Crew] + 1)
+      scrappers: 0, // Academy Auto-Scrappers [MP Gained, Mission Materials] *= (0.1 * [level] * [Zeus Crew] + 1)
     },
     ouro: {
       crew: 0,
-      installs: [0, 0, 0, 0, 0, 0],
+      bioMaterial: 0, // Bio-Material Duplication Tech [Mission Materials] *= (0.005 * [level] * [Zeus Crew] + 1)
     },
   },
   loopMods: {
@@ -46,56 +40,23 @@ const blankPlayer = {
     looping: 0, // Mission Materials *= pow(0.0002 * [Looping] + 1, [Loops Filled])
     productivity: 0, // Mission Speed *= pow(1.1, [Productivity]), Mission Materials *= pow(0.002 * [Productivity] + 1, [Player Level])
     sekhur5: 0, // Mission Materials *= 1.25
+    sowSireneMats: 0, // Mission Matersials *= pow(1.1, [Knox Highscore Stage])
   },
-  shardMilestones: [
-    0, // (01) Alpha
-    0, // (02) Aquarius
-    0, // (03) Libra
-    0, // (04) Modifying
-    0, // (05) Flowering
-    0, // (06) Connecting
-    0, // (07) Duality
-    0, // (08) Morphing
-    0, // (09) Producing
-    0, // (10) Expanding
-    0, // (11) Triangular
-    0, // (12) Extracting
-    0, // (13) Seeding
-    0, // (14) Pathing
-    0, // (15) Ritualistic
-    0, // (16) Modulistic
-    0, // (17) Machining
-    0, // (18) Studying
-    0, // (19) Lucky
-    0, // (20) Duplicating
-    0, // (21) Targeting
-    0, // (22) Quadratic
-    0, // (23) Layering
-    0, // (24) Torn
-    0, // (25) Fabricating
-    0, // (26) Wonderous
-    0, // (27) Sharp
-    0, // (28) Sly
-    0, // (29) Earthly
-  ],
+  shardMilestones: {
+    wonderous: 0,
+    earthly: 0,
+  },
   research: {
-    mission: [
-      0, // (1) [AP = (level > 2 ? 1.3 : 1) * (level > 4 ? 1.3 : 1), Materials = pow(1.5, floor(level / 2))]
-      0, // (2) [AP = (level > 2 ? 1.5 : 1) * (level > 4 ? 1.5 : 1), Materials = pow(1.75, floor(level / 2))]
-      0, // (3) [Mission Speed = pow(1.05, floor((level + 1) / 2)) || BUGGED = pow(1.05, floor((level + 1) / 2)) / (0.05 * (level === 6) + 1)]
-      0, // (4) [AP = (level > 2 ? 2 : 1) * (level > 4 ? 3 : 1), Materials = (level > 1 ? 2 : 1) * (level > 3 ? 3 : 1) * (level > 5 ? 4 : 1)]
-      0, //  (5) [AP = (level > 2 ? 3 : 1) * (level > 4 ? 4 : 1), Materials = (level > 1 ? 3 : 1) * (level > 3 ? 4 : 1) * (level > 5 ? 5 : 1)]
-    ],
-    perfection: [
-      0, // (1) [AP = level > 3 ? 10 : 1]
-      0, // (2) [AP = level > 3 ? 10 : 1, Materials = 4 * (level > 1) + 1]
-      0, // (3) [AP = level > 3 ? 50 : 1, Materials = 4 * (level > 1) + 1, Mission Speed = (level > 4) + 1]
-      0, // (4) [AP = level > 3 ? 99 : 1, Materials = 8 * (level > 1) + 1, Mission Speed = (level > 4) + 1]
-    ],
-    construction: [
-      0, // (1) Project Cost = (level > 1 ? 1.5 : 1) * (level > 3 ? 2 : 1) * (level > 5 ? 2.5 : 1)]
-      0, // (2) Project Cost = (level > 1 ? 2 : 1) * (level > 3 ? 3 : 1) * (level > 5 ? 4 : 1)]
-    ],
+    r43: 0, // [AP = (level > 2 ? 1.3 : 1) * (level > 4 ? 1.3 : 1), Materials = pow(1.5, floor(level / 2))]
+    r55: 0, // [AP = (level > 2 ? 1.5 : 1) * (level > 4 ? 1.5 : 1), Materials = pow(1.75, floor(level / 2))]
+    r58: 0, // [Mission Speed = pow(1.05, floor((level + 1) / 2)) || BUGGED = pow(1.05, floor((level + 1) / 2)) / (0.05 * (level === 6) + 1)]
+    r60: 0, // [AP = level > 3 ? 10 : 1, Materials = 4 * (level > 1) + 1]
+    r62: 0, // Project Cost = (level > 1 ? 1.5 : 1) * (level > 3 ? 2 : 1) * (level > 5 ? 2.5 : 1)]
+    r67: 0, // [AP = (level > 2 ? 2 : 1) * (level > 4 ? 3 : 1), Materials = (level > 1 ? 2 : 1) * (level > 3 ? 3 : 1) * (level > 5 ? 4 : 1)]
+    r70: 0, // [AP = level > 3 ? 50 : 1, Materials = 4 * (level > 1) + 1, Mission Speed = (level > 4) + 1]
+    r72: 0, // Project Cost = (level > 1 ? 2 : 1) * (level > 3 ? 3 : 1) * (level > 5 ? 4 : 1)]
+    r77: 0, // [AP = (level > 2 ? 3 : 1) * (level > 4 ? 4 : 1), Materials = (level > 1 ? 3 : 1) * (level > 3 ? 4 : 1) * (level > 5 ? 5 : 1)]
+    r80: 0, // [AP = level > 3 ? 99 : 1, Materials = 8 * (level > 1) + 1, Mission Speed = (level > 4) + 1]
   },
   academy: {
     personnel: [
@@ -257,7 +218,6 @@ const blankPlayer = {
       loopers: false,
       efficiency: false,
       engineering: false,
-
       darkInnovation: false,
     },
   },
@@ -271,14 +231,22 @@ const blankPlayer = {
     iapCollector: false,
   },
   relics: {
-    relic3: 0,
-    relic5: 0,
-    relic20: 0,
+    r3: 0,
+    r5: 0,
+    r20: 0,
   },
   ouro: {
     enabled: false,
     meltdown: 0.0001,
     gemCreationNode3Bonus: 1,
+    darkInnovationBadge: false,
+  },
+  knox: {
+    necrumBonus: 1,
+    gadgets: {
+      extractorDrill: 0,
+      fragmentMagnet: 0,
+    },
   },
 }
 
