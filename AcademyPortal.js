@@ -2,13 +2,13 @@ function GetMissionSpeedBonus() {
   let missionSpeedBonus = Math.pow(1.0311, playerData.loopMods.swarm)
   missionSpeedBonus *= Math.pow(
     1.05,
-    Math.floor((playerData.research.mission[2] + 1) / 2),
+    Math.floor((playerData.research.r58 + 1) / 2),
   )
-  missionSpeedBonus *= (playerData.research.perfection[2] > 4) + 1
-  missionSpeedBonus *= (playerData.research.perfection[3] > 4) + 1
+  missionSpeedBonus *= (playerData.research.r70 > 4) + 1
+  missionSpeedBonus *= (playerData.research.r80 > 4) + 1
   if (playerData.academy.badges.engineering) missionSpeedBonus *= 2
   missionSpeedBonus *= Math.pow(1.1, playerData.loopMods.productivity)
-  missionSpeedBonus *= 1 + 0.03 * (playerData.relics.relic3 || 0)
+  missionSpeedBonus *= 1 + 0.03 * (playerData.relics.r3 || 0)
 
   return missionSpeedBonus || 1
 }
@@ -210,7 +210,7 @@ function GetMaxMissionRate() {
     }
   }
 
-  SavePlayerData()
+  savePlayerData()
 }
 
 const getMatBonusFromLoopMod = () => {
@@ -221,7 +221,7 @@ const getMatBonusFromLoopMod = () => {
     Math.pow(1.05, playerData.loopMods.materialHauling) *
     Math.pow(1 + 0.0002 * playerData.loopMods.looping, playerData.loopsFilled) *
     Math.pow(1 + 0.002 * playerData.loopMods.productivity, playerData.level) *
-    (playerData.ouro.enabled && playerData.loopMods.sekhur5 ? 1.25 : 1)
+    (playerData.ouro.enabled && playerData.loopMods.sekhur5 ? Math.pow(1.25, playerData.loopMods.sekhur5) : 1)
   )
 }
 
@@ -230,25 +230,25 @@ const getMatBonusFromShardMilestone = () => {
 
   const wonderous60 = Math.pow(
     1.044,
-    Math.max(0, playerData.shardMilestones[25] - 55) *
-      (playerData.shardMilestones[25] > 59),
+    Math.max(0, playerData.shardMilestones.wonderous - 55) *
+      (playerData.shardMilestones.wonderous > 59),
   )
   bonus *= wonderous60
   const wonderous90 = Math.pow(
     1.068,
-    Math.max(0, playerData.shardMilestones[25] - 84) *
-      (playerData.shardMilestones[25] > 89),
+    Math.max(0, playerData.shardMilestones.wonderous - 84) *
+      (playerData.shardMilestones.wonderous > 89),
   )
   bonus *= wonderous90
   bonus *= Math.pow(
     1.018,
-    Math.max(0, playerData.shardMilestones[28] - 20) *
-      (playerData.shardMilestones[28] > 24),
+    Math.max(0, playerData.shardMilestones.earthly - 20) *
+      (playerData.shardMilestones.earthly > 24),
   )
   bonus *= Math.pow(
     1.028,
-    Math.max(0, playerData.shardMilestones[28] - 45) *
-      (playerData.shardMilestones[28] > 49),
+    Math.max(0, playerData.shardMilestones.earthly - 45) *
+      (playerData.shardMilestones.earthly > 49),
   )
 
   return bonus
@@ -256,23 +256,24 @@ const getMatBonusFromShardMilestone = () => {
 
 const getMatBonusFromResearch = () => {
   const bonus =
-    Math.pow(1.5, Math.floor(playerData.research.mission[0] / 2)) *
-    Math.pow(1.75, Math.floor(playerData.research.mission[1] / 2)) *
-    (1 + 4 * (playerData.research.perfection[1] > 1)) *
-    (playerData.research.mission[3] > 1 ? 2 : 1) *
-    (playerData.research.mission[3] > 3 ? 3 : 1) *
-    (playerData.research.mission[3] > 5 ? 4 : 1) *
-    (1 + 4 * (playerData.research.perfection[2] > 1)) *
-    (1 + 8 * (playerData.research.perfection[3] > 1)) *
-    (playerData.research.mission[4] > 1 ? 3 : 1) *
-    (playerData.research.mission[4] > 3 ? 4 : 1) *
-    (playerData.research.mission[4] > 5 ? 5 : 1)
+    Math.pow(1.5, Math.floor(playerData.research.r43 / 2)) *
+    Math.pow(1.75, Math.floor(playerData.research.r55 / 2)) *
+    (1 + 4 * (playerData.research.r60 > 1)) *
+    (playerData.research.r67 > 1 ? 2 : 1) *
+    (playerData.research.r67 > 3 ? 3 : 1) *
+    (playerData.research.r67 > 5 ? 4 : 1) *
+    (1 + 4 * (playerData.research.r70 > 1)) *
+    (playerData.research.r77 > 1 ? 3 : 1) *
+    (playerData.research.r77 > 3 ? 4 : 1) *
+    (playerData.research.r77 > 5 ? 5 : 1) *
+    (1 + 8 * (playerData.research.r80 > 1))
 
   return bonus
 }
 
 function GetStaticMatBonus() {
-  const isOuroEnabled = playerData.ouro.enabled
+  const isOuroEnabled = playerData.general.ouroEnabled
+  const isKnoxEnabled = playerData.general.knoxEnabled
   const zeus = playerData.fleet.zeus
   const ouro = playerData.fleet.ouro
 
@@ -288,20 +289,20 @@ function GetStaticMatBonus() {
 
   // zeus install
   const shipBonus =
-    isOuroEnabled && playerData.academy.badges.darkInnovation ? 3 : 1
-  const zeus3Bonus = 1 + 0.25 * zeus.installs[2] * (zeus.crew || 0) * shipBonus
+    isOuroEnabled && playerData.ouro.darkInnovationBadge ? 3 : 1
+  const zeus3Bonus = 1 + 0.25 * zeus.vehicles * (zeus.crew || 0) * shipBonus
   staticMatBonus *= zeus3Bonus
   console.log('zeus3Bonus', zeus3Bonus)
-  const zeus6Bonus = 1 + 0.1 * zeus.installs[5] * (zeus.crew || 0) * shipBonus
+  const zeus6Bonus = 1 + 0.1 * zeus.scrappers * (zeus.crew || 0) * shipBonus
   staticMatBonus *= zeus6Bonus
   console.log('zeus6Bonus', zeus6Bonus)
 
   // ouro install
   if (isOuroEnabled) {
-    staticMatBonus *= Math.pow(8, playerData.relics.relic20 || 0)
+    staticMatBonus *= Math.pow(8, playerData.relics.r20 || 0)
     const ouro5Bonus =
-      Math.pow(1 + 0.005 * (ouro.installs[4] || 0), ouro.crew || 0) *
-      (ouro.installs[4] ? shipBonus : 1)
+      Math.pow(1 + 0.005 * (ouro.bioMaterial || 0), ouro.crew || 0) *
+      (ouro.bioMaterial ? shipBonus : 1)
     staticMatBonus *= ouro5Bonus
     console.log('ouro5Bonus', ouro5Bonus)
   }
@@ -520,15 +521,15 @@ class ProjectConfig {
 
     let costDiv = 1
     costDiv =
-      (playerData.research.construction[0] > 1 ? 1.5 : 1) *
-      (playerData.research.construction[0] > 3 ? 2 : 1) *
-      (playerData.research.construction[0] > 5 ? 2.5 : 1)
+      (playerData.research.r62 > 1 ? 1.5 : 1) *
+      (playerData.research.r62 > 3 ? 2 : 1) *
+      (playerData.research.r62 > 5 ? 2.5 : 1)
     costDiv *=
-      (playerData.research.construction[1] > 1 ? 2 : 1) *
-      (playerData.research.construction[1] > 2 ? 3 : 1) *
-      (playerData.research.construction[1] > 3 ? 3 : 1) *
-      (playerData.research.construction[1] > 4 ? 4 : 1) *
-      (playerData.research.construction[1] > 5 ? 4 : 1)
+      (playerData.research.r72 > 1 ? 2 : 1) *
+      (playerData.research.r72 > 2 ? 3 : 1) *
+      (playerData.research.r72 > 3 ? 3 : 1) *
+      (playerData.research.r72 > 4 ? 4 : 1) *
+      (playerData.research.r72 > 5 ? 4 : 1)
 
     let accumCosts = [0, 0, 0, 0, 0, 0, 0, 0]
     while (true) {
@@ -578,15 +579,15 @@ class ProjectConfig {
   getCostDiv() {
     let costDiv = 1
     costDiv =
-      (playerData.research.construction[0] > 1 ? 1.5 : 1) *
-      (playerData.research.construction[0] > 3 ? 2 : 1) *
-      (playerData.research.construction[0] > 5 ? 2.5 : 1)
+      (playerData.research.r62 > 1 ? 1.5 : 1) *
+      (playerData.research.r62 > 3 ? 2 : 1) *
+      (playerData.research.r62 > 5 ? 2.5 : 1)
     costDiv *=
-      (playerData.research.construction[1] > 1 ? 2 : 1) *
-      (playerData.research.construction[1] > 2 ? 3 : 1) *
-      (playerData.research.construction[1] > 3 ? 3 : 1) *
-      (playerData.research.construction[1] > 4 ? 4 : 1) *
-      (playerData.research.construction[1] > 5 ? 4 : 1)
+      (playerData.research.r72 > 1 ? 2 : 1) *
+      (playerData.research.r72 > 2 ? 3 : 1) *
+      (playerData.research.r72 > 3 ? 3 : 1) *
+      (playerData.research.r72 > 4 ? 4 : 1) *
+      (playerData.research.r72 > 5 ? 4 : 1)
 
     return costDiv
   }

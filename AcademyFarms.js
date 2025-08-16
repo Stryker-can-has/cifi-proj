@@ -634,13 +634,13 @@ academyFarmPortal.pages.default.initFunction = function (panel) {
 academyFarmPortal.pages.default.updateFunction = function (e) {
   if (e.target.id.includes('lock')) {
     portalPanel.dataLinkage[e.target.id] = e.target.checked
-    SavePlayerData()
+    savePlayerData()
     return
   }
 
   if (e.target.id.includes('duration')) {
     portalPanel.dataLinkage[e.target.id] = e.target.value
-    SavePlayerData()
+    savePlayerData()
 
     PopulateTiming()
     populateYield()
@@ -650,7 +650,7 @@ academyFarmPortal.pages.default.updateFunction = function (e) {
 
   if (e.target.id.includes('power')) {
     portalPanel.dataLinkage[e.target.id] = parseFloat(e.target.value)
-    SavePlayerData()
+    savePlayerData()
 
     PopulateTiming()
     populateYield()
@@ -660,7 +660,7 @@ academyFarmPortal.pages.default.updateFunction = function (e) {
 
   if (e.target.type === 'number') {
     portalPanel.dataLinkage[e.target.id] = parseInt(e.target.value)
-    SavePlayerData()
+    savePlayerData()
 
     PopulateTiming()
     populateYield()
@@ -674,7 +674,7 @@ academyFarmPortal.pages.default.updateFunction = function (e) {
   } else {
     portalPanel.dataLinkage[e.target.id] = value
   }
-  SavePlayerData()
+  savePlayerData()
 
   populateYield()
 }
@@ -741,7 +741,7 @@ function clearMissions() {
     }
   }
 
-  SavePlayerData()
+  savePlayerData()
   populateYield()
   PopulateTiming()
 }
@@ -811,7 +811,7 @@ function genZeusRank(missionCount, duration) {
   zeusTable.append(missionRate)
   if (playerData.ouro.enabled) {
     const relicFragPerHr =
-      numMissionPerHr * (0.001 + 0.001 * (playerData.relics.relic5 || 0))
+      numMissionPerHr * (0.001 + 0.001 * (playerData.relics.r5 || 0))
     zeusTable.append(
       $('<tr>')
         .append($('<td>').text('Relic Fragment'))

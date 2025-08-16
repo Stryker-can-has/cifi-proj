@@ -255,59 +255,23 @@ const LSKey = 'CifiProjSave'
 // Initializes to blank save in absence of preexisting save
 let playerData = JSON.parse(localStorage.getItem(LSKey)) || blankPlayer
 
-function SavePlayerData(data) {
+function savePlayerData(data) {
   localStorage.setItem(LSKey, JSON.stringify(data || playerData))
 }
 
-function LoadPlayerData() {
+function loadPlayerData() {
   playerData = JSON.parse(localStorage.getItem(LSKey))
 }
 
-function ResetPlayerData() {
+function resetPlayerData() {
   localStorage.removeItem(LSKey)
 }
 
-// Add new properties to player data object upon opening newer version of Super Assistant
-function UpdatePlayerData() {
-  SavePlayerData()
-}
-
-function fixPlayerData() {
-  if (!playerData.ouro) {
-    playerData.ouro = blankPlayer.ouro
-  }
-
-  if (playerData.meltdown) {
-    playerData.ouro.meltdown = playerData.meltdown
-    delete playerData.meltdown
-  }
-
-  if (!playerData.diamonds.ultima) {
-    playerData.diamonds.ultima = blankPlayer.diamonds.ultima
-  }
-
-  if (!playerData.relics) {
-    playerData.relics = blankPlayer.relics
-  }
-
-  if (playerData.relics.glider) {
-    playerData.relics.relic3 = playerData.relics.glider
-    delete playerData.relics.glider
-  }
-
-  if (!playerData.fleet.ouro) {
-    playerData.fleet.ouro = blankPlayer.fleet.ouro
-  }
-
-  if (playerData.academy.farms.length < 4)
-  {
-    playerData.academy.farms.push(blankPlayer.academy.farms[3])
-  }
-
+function migratePlayerData() {
   if (playerData.version < blankPlayer.version) {
-    playerData.version = blankPlayer.version
-    UpdatePlayerData()
+    playerData = blankPlayer
+    savePlayerData()
   }
 }
 
-fixPlayerData()
+migratePlayerData()

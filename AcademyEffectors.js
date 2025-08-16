@@ -911,13 +911,13 @@ academyEffectorPortal.pages.default.initFunction = function (panel) {
 academyEffectorPortal.pages.default.updateFunction = function (e) {
   if (/^select$/i.test(e.target.tagName)) {
     portalPanel.dataLinkage[e.target.id] = parseInt(e.target.value, 10)
-    SavePlayerData()
+    savePlayerData()
     return
   }
 
   if (e.target.type === 'checkbox') {
     portalPanel.dataLinkage[e.target.id] = e.target.checked
-    SavePlayerData()
+    savePlayerData()
 
     if (e.target.id === 'ouroboros') {
       location.reload()
@@ -936,7 +936,7 @@ academyEffectorPortal.pages.default.updateFunction = function (e) {
     } else {
       portalPanel.dataLinkage[e.target.id] = parseInt(e.target.value)
     }
-    SavePlayerData()
+    savePlayerData()
 
     if (e.target.id === 'zeusrank') {
       portalPanel['zeusrankrequirement'].innerText =
@@ -955,5 +955,5 @@ academyEffectorPortal.pages.default.updateFunction = function (e) {
   } else {
     portalPanel.dataLinkage[e.target.id] = value
   }
-  SavePlayerData()
+  savePlayerData()
 }

@@ -84,7 +84,7 @@ const loadSettings = (e) => {
           }
 
           delete data.activePortal
-          SavePlayerData(data)
+          savePlayerData(data)
           resolve()
         } catch (e) {
           console.error(e)
@@ -102,7 +102,7 @@ const loadSettings = (e) => {
 
 const resetSettings = () => {
   if (confirm('Sure?')) {
-    ResetPlayerData()
+    resetPlayerData()
     location.reload()
   }
 }
@@ -230,7 +230,7 @@ function updateSettings() {}
 
 function selectColor(e) {
   portalPanel.dataLinkage[e.target.id] = e.target.value
-  SavePlayerData()
+  savePlayerData()
 }
 
 function resetColors() {
@@ -239,6 +239,6 @@ function resetColors() {
   portalPanel.dataLinkage.academyproj2 = '#44CC44'
   portalPanel.dataLinkage.academyproj3 = '#4444CC'
 
-  SavePlayerData()
+  savePlayerData()
   location.reload()
 }

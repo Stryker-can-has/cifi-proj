@@ -30,7 +30,7 @@ function reDim() {
       destroyPortal()
       playerData.activePortal = target
       activePortal = portals[target]
-      SavePlayerData()
+      savePlayerData()
       ConstructPortal(activePortal)
     })
 }

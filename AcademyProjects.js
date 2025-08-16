@@ -251,7 +251,7 @@ academyProjectPortal.pages.default.initFunction = function (panel) {
 academyProjectPortal.pages.default.updateFunction = function (e) {
   if (e.target.id.includes('duration')) {
     portalPanel.dataLinkage[e.target.id] = e.target.value
-    SavePlayerData()
+    savePlayerData()
 
     generateRunYield()
 
@@ -305,7 +305,7 @@ academyProjectPortal.pages.default.updateFunction = function (e) {
   }
 
   portalPanel.dataLinkage[e.target.id] = parseInt(e.target.value)
-  SavePlayerData()
+  savePlayerData()
 
   generateRunYield()
   UpdateRequirement()
@@ -356,7 +356,7 @@ function setProjectLevel(project, level, setting) {
   portalPanel.projectConfigs[project].currentLevel =
     portalPanel.projectConfigs[project].startLevel + level - (setting === '3')
   playerData.academy.projectGoals[project] = level - (setting === '3')
-  SavePlayerData()
+  savePlayerData()
 
   let totalNew = 0
   let newBp = 0
