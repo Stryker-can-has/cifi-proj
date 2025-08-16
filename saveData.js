@@ -5,7 +5,7 @@ PLAYER DATA CHANGE LOG
 */
 
 const blankPlayer = {
-  version: 14,
+  version: 15,
   activePortal: 'academyEffector',
   colorProfile: {
     academyProjects: ['#444444', '#CCCC44', '#44CC44', '#4444CC'],
