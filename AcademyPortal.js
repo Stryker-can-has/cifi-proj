@@ -632,7 +632,7 @@ class ProjectConfig {
 }
 
 function CalculateUltimaMaxIncrease() {
-  return playerData.traits.keys().reduce((sum, sphere) => {
+  return Object.keys(playerData.traits).reduce((sum, sphere) => {
     const trait = playerData.traits[sphere]
     if (trait && trait.currency === types.CURRENCIES.ULTIMA) {
       return sum + GameDB.traits[sphere].value
