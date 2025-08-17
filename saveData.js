@@ -241,8 +241,17 @@ const blankPlayer = {
     gemCreationNode3Bonus: 1,
     darkInnovationBadge: false,
   },
+  traits: {
+    sphere04: false,
+    sphere07: false,
+    sphere09: false,
+    sphere11: false,
+    sphere12: false,
+    sphere14: false,
+  },
   knox: {
     necrumBonus: 1,
+    highScore: 0,
     gadgets: {
       extractorDrill: 0,
       fragmentMagnet: 0,
@@ -267,11 +276,33 @@ function resetPlayerData() {
   localStorage.removeItem(LSKey)
 }
 
+function ensurePlayerDataHas(propPath, defaultVal) {
+  let subject = playerData
+  const propChain = propPath.split('.')
+  const lastIndex = propChain.length - 1
+  propChain.forEach((prop, i) => {
+    if (!Object.prototype.hasOwnProperty.call(subject, prop)) {
+      if (i === lastIndex) {
+        subject[prop] = defaultVal
+      } else {
+        subject[prop] = {}
+      }
+    }
+  })
+}
+
 function migratePlayerData() {
-  if (playerData.version < blankPlayer.version) {
+  if (playerData.version < 15) {
     playerData = blankPlayer
-    savePlayerData()
   }
+
+  ensurePlayerDataHas('knox.highScore', 0)
+  ensurePlayerDataHas('traits', blankPlayer.traits)
+  if (playerData.version < blankPlayer.version) {
+    playerData.version = blankPlayer.version
+  }
+
+  savePlayerData()
 }
 
 migratePlayerData()

@@ -381,7 +381,8 @@ function CalculateFarmYields(giveTotal = false) {
         ),
         runTime: farmDuration,
         activeTime: farmDuration,
-        farmCount: Math.floor(duration / farmDuration),
+        farmCount: Math.floor(duration / farmDuration) *
+          (playerData.traits.sphere07 ? 2 : 1),
       }
       farms.push(newFarm)
     }
@@ -625,4 +626,13 @@ class ProjectConfig {
       playerData.ouro.enabled,
     )
   }
+}
+
+function CalculateUltimaMaxIncrease() {
+  const t = playerData.traits
+  return (t.sphere04 ? 1 : 0) +
+    (t.sphere09 ? 2 : 0) +
+    (t.sphere11 ? 2 : 0) +
+    (t.sphere12 ? 2 : 0) +
+    (t.sphere14 ? 3 : 0)
 }

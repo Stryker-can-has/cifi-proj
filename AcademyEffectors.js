@@ -74,7 +74,7 @@ const sections = [
         type: 'number',
         label: 'Ultima: Rule of the Swarm',
         max: 30,
-        text: '/ 30',
+        text: '/ {{ultimaMax}}',
         info: {
           type: 'mod',
           icon: 'rule-of-the-swarm.jpg',
@@ -101,7 +101,7 @@ const sections = [
         type: 'number',
         label: 'Ultima: Rule of Productivity',
         max: 10,
-        text: '/ 10',
+        text: '/ {{ultimaMax}}',
         info: {
           type: 'mod',
           icon: 'rule-of-productivity.jpg',
@@ -115,7 +115,7 @@ const sections = [
         type: 'number',
         label: 'Ultima: Rule of Looping',
         max: 10,
-        text: '/ 10',
+        text: '/ {{ultimaMax}}',
         info: {
           type: 'mod',
           icon: 'rule-of-looping.jpg',
@@ -129,7 +129,7 @@ const sections = [
         type: 'number',
         label: 'Ultima: Planet Sekhur-5',
         max: 1,
-        text: '/ 1',
+        text: '/ {{ultimaMax}}',
         isOuro: true,
       },
     ],
@@ -350,12 +350,49 @@ const sections = [
         type: 'number',
         label: 'Creation Gem Node #3 Bonus',
       },
+    ],
+  },
+  {
+    name: 'Trait Spheres',
+    isOuro: true,
+    children: [
+      {
+        id: 'trait04',
+        type: 'checkbox',
+        label:
+          '<label class="has-tip" data-bs-toggle="tooltip" data-bs-title="Increases Ultima Loop Mods max level by 1">Trait Sphere #04</label>',
+      },
       {
         id: 'trait07',
         type: 'checkbox',
-        label: 'Trait Sphere #07',
-      }
-    ],
+        label:
+          '<label class="has-tip" data-bs-toggle="tooltip" data-bs-title="Increases Missions per Mission Completed by x2">Trait Sphere #07</label>',
+      },
+      {
+        id: 'trait09',
+        type: 'checkbox',
+        label:
+          '<label class="has-tip" data-bs-toggle="tooltip" data-bs-title="Increases Ultima Loop Mods max level by 2">Trait Sphere #09</label>',
+      },
+      {
+        id: 'trait11',
+        type: 'checkbox',
+        label:
+          '<label class="has-tip" data-bs-toggle="tooltip" data-bs-title="Increases Ultima Loop Mods max level by 2">Trait Sphere #11</label>',
+      },
+      {
+        id: 'trait12',
+        type: 'checkbox',
+        label:
+          '<label class="has-tip" data-bs-toggle="tooltip" data-bs-title="Increases Ultima Loop Mods max level by 2">Trait Sphere #12</label>',
+      },
+      {
+        id: 'trait14',
+        type: 'checkbox',
+        label:
+          '<label class="has-tip" data-bs-toggle="tooltip" data-bs-title="Increases Ultima Loop Mods max level by 3">Trait Sphere #14</label>',
+      },
+    ]
   },
   {
     name: 'Knox Effects',
@@ -741,9 +778,11 @@ academyEffectorPortal.pages.default.initFunction = function (panel) {
   const wrapper = createElement('div', 'section-2', { style: 'gap: 20px' })
 
   const ouroEnabled = !!portalPanel.dataLinkage.ouroboros
+  const knoxEnabled = !! portalPanel.dataLinkage.knox
 
-  sections.forEach(({ name, children, style, isOuro }) => {
+  sections.forEach(({ name, children, style, isOuro, isKnox }) => {
     if (isOuro && !ouroEnabled) return
+    if (isKnox && !knoxEnabled) return
 
     const section = createElement('div', 'section-3', { style })
     const header = createElement('h5', '', null, name)
@@ -938,6 +977,12 @@ academyEffectorPortal.pages.default.updateFunction = function (e) {
     }
     savePlayerData()
 
+    const textLabel = trailerTextForInput(e.target)
+    if (textLabel) {
+      const baseMax = parseInt(e.target.max || 0)
+      textLabel.replace('{{ultimaMax}}', baseMax + CalculateUltimaMaxIncrease())
+    }
+
     if (e.target.id === 'zeusrank') {
       portalPanel['zeusrankrequirement'].innerText =
         '/ ' +
@@ -956,4 +1001,8 @@ academyEffectorPortal.pages.default.updateFunction = function (e) {
     portalPanel.dataLinkage[e.target.id] = value
   }
   savePlayerData()
+}
+
+function trailerTextForInput(elm) {
+  return elm.parentElement.nextElementSibling?.querySelector('.form-text')
 }
