@@ -275,6 +275,9 @@ let GameDB = {
       ],
     },
   },
+  /**
+   * @type {{[key: string]: { stepIncrease: number, tenBonus: number, type: string, currency: string }}}
+   */
   gadgets: {
     extractorDrill: {
       stepIncrease: .005,

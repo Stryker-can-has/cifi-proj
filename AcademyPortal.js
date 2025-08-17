@@ -214,14 +214,20 @@ function GetMaxMissionRate() {
 }
 
 const getMatBonusFromLoopMod = () => {
+  console.dir({
+    line: 218,
+    sowSireneMats: playerData.loopMods.sowSireneMats,
+    highScore: playerData.knox.highScore,
+    sowMultiplier: (playerData.loopMods.sowSireneMats ? Math.pow(1.1, playerData.knox.highScore || 1) : 1)
+  })
   return (
     Math.pow(1.01, playerData.loopMods.beyonders) *
     Math.pow(1.5111, playerData.loopMods.swarm) *
     Math.pow(1.01, playerData.loopMods.expansion) *
     Math.pow(1.05, playerData.loopMods.materialHauling) *
-    Math.pow(1 + 0.0002 * playerData.loopMods.looping, playerData.loopsFilled) *
-    Math.pow(1 + 0.002 * playerData.loopMods.productivity, playerData.level) *
-    (playerData.general.ouroEnabled && playerData.loopMods.sekhur5 ? Math.pow(1.25, playerData.loopMods.sekhur5) : 1) *
+    Math.pow(1 + 0.0002 * playerData.loopMods.looping, playerData.general.loopsFilled) *
+    Math.pow(1 + 0.002 * playerData.loopMods.productivity, playerData.general.level) *
+    (playerData.general.ouroEnabled && playerData.loopMods.sekhur5 ? Math.pow(1.25, playerData.loopMods.sekhur5 || 1) : 1) *
     (playerData.loopMods.sowSireneMats ? Math.pow(1.1, playerData.knox.highScore || 1) : 1)
   )
 }
@@ -335,6 +341,7 @@ function GetStaticMatBonus() {
   }
 
   staticMatBonus *= Math.max(1, playerData.knox.necrumBonus)
+  staticMatBonus *= CalculateGadgetMultiplier('extractorDrill')
 
   return staticMatBonus
 }
@@ -343,8 +350,7 @@ function GetDynamicMatBonus() {
   return Math.pow(
     0.01 * playerData.loopMods.zeusRankBenefits + 1,
     playerData.fleet.zeus.rank.current,
-  ) *
-    CalculateGadgetMultiplier('extractorDrill')
+  )
 }
 
 function GetCurrentMatBonus() {
@@ -649,6 +655,7 @@ function CalculateUltimaMaxIncrease() {
 function CalculateGadgetMultiplier(name) {
   const { type, stepIncrease, tenBonus } = GameDB.gadgets[name]
   const level = playerData.knox.gadgets[name]
+  console.dir({ name, level, type, stepIncrease, tenBonus })
   if (type === 'mult') return Math.pow(stepIncrease + 1, level) * Math.pow(tenBonus, Math.floor(level / 10))
   if (type === 'add') return (stepIncrease * level) + (tenBonus * Math.floor(level / 10))
   throw new Error(`Unrecognized gadget type ${type}`)
