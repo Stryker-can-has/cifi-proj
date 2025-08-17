@@ -4,6 +4,10 @@ let academyEffectorPortal = {
   },
 }
 
+const strings = {
+  ULTIMA_REPLACEMENT_TEMPLATE: '{{ultimaMax}}',
+}
+
 const sections = [
   {
     name: 'General',
@@ -74,7 +78,7 @@ const sections = [
         type: 'number',
         label: 'Ultima: Rule of the Swarm',
         max: 30,
-        text: '/ {{ultimaMax}}',
+        text: `/ ${strings.ULTIMA_REPLACEMENT_TEMPLATE}`,
         info: {
           type: 'mod',
           icon: 'rule-of-the-swarm.jpg',
@@ -101,7 +105,7 @@ const sections = [
         type: 'number',
         label: 'Ultima: Rule of Productivity',
         max: 10,
-        text: '/ {{ultimaMax}}',
+        text: `/ ${strings.ULTIMA_REPLACEMENT_TEMPLATE}`,
         info: {
           type: 'mod',
           icon: 'rule-of-productivity.jpg',
@@ -115,7 +119,7 @@ const sections = [
         type: 'number',
         label: 'Ultima: Rule of Looping',
         max: 10,
-        text: '/ {{ultimaMax}}',
+        text: `/ ${strings.ULTIMA_REPLACEMENT_TEMPLATE}`,
         info: {
           type: 'mod',
           icon: 'rule-of-looping.jpg',
@@ -129,7 +133,7 @@ const sections = [
         type: 'number',
         label: 'Ultima: Planet Sekhur-5',
         max: 1,
-        text: '/ {{ultimaMax}}',
+        text: `/ ${strings.ULTIMA_REPLACEMENT_TEMPLATE}`,
         isOuro: true,
       },
     ],
@@ -823,7 +827,8 @@ academyEffectorPortal.pages.default.initFunction = function (panel) {
   const wrapper = createElement('div', 'section-2', { style: 'gap: 20px' })
 
   const ouroEnabled = !!portalPanel.dataLinkage.ouroboros
-  const knoxEnabled = !! portalPanel.dataLinkage.knox
+  const knoxEnabled = !!portalPanel.dataLinkage.knox
+  const initialUltimaMaxIncrease = CalculateUltimaMaxIncrease()
 
   sections.forEach(({ name, children, style, isOuro, isKnox }) => {
     if (isOuro && !ouroEnabled) return
@@ -942,9 +947,10 @@ academyEffectorPortal.pages.default.initFunction = function (panel) {
           }
 
           if (text || props.textHtml) {
-            /** @type {string} */
             const str = `${text}`
-            if(str.includes('{{ultimaMax}}')) str.replace('{{ultimaMax}}', CalculateUltimaMaxIncrease())
+            if (str.includes(strings.ULTIMA_REPLACEMENT_TEMPLATE)) {
+              str.replace(strings.ULTIMA_REPLACEMENT_TEMPLATE, initialUltimaMaxIncrease)
+            }
             const textCol = createElement('div', '')
             const textEl = createElement('span', 'form-text', '', str || '')
             if (props.textHtml) {
@@ -1054,9 +1060,9 @@ academyEffectorPortal.pages.default.updateFunction = function (e) {
 function updateUltimaMaximums() {
   const increase = CalculateUltimaMaxIncrease()
   sections.find((section) => section.name === 'Loop Mods').children.forEach((field) => {
-    if (field.text && field.text.includes('{{ultimaMax}}')) {
+    if (field.text && field.text.includes(strings.ULTIMA_REPLACEMENT_TEMPLATE)) {
       const textElm = document.getElementById(field.id).parentElement.nextElementSibling?.querySelector('.form-text')
-      if (textElm) textElm.innerHTML = field.text.replace('{{ultimaMax}}', increase)
+      if (textElm) textElm.innerHTML = field.text.replace(strings.ULTIMA_REPLACEMENT_TEMPLATE, increase)
     }
   })
 }

@@ -633,7 +633,7 @@ class ProjectConfig {
 
 function CalculateUltimaMaxIncrease() {
   console.group('Calculating Ultima Max Increase')
-  return Object.keys(playerData.traits).reduce((sum, sphere) => {
+  const total = Object.keys(playerData.traits).reduce((sum, sphere) => {
     const trait = GameDB.traits[sphere]
     if (playerData.traits[sphere] && trait && trait.currency === types.CURRENCIES.ULTIMA) {
       console.log(`Adding ${sphere}: +${trait.value}`)
@@ -641,6 +641,8 @@ function CalculateUltimaMaxIncrease() {
     }
     return sum
   }, 0)
+  console.groupEnd()
+  return total
 }
 
 
