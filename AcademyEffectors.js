@@ -947,7 +947,7 @@ academyEffectorPortal.pages.default.initFunction = function (panel) {
           }
 
           if (text || props.textHtml) {
-            if (text.includes(strings.ULTIMA_REPLACEMENT_TEMPLATE)) {
+            if (text?.includes(strings.ULTIMA_REPLACEMENT_TEMPLATE)) {
               text = text.replace(strings.ULTIMA_REPLACEMENT_TEMPLATE, initialUltimaMaxIncrease + props.max)
             }
             const textCol = createElement('div', '')
