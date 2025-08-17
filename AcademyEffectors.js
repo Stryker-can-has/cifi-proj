@@ -428,14 +428,14 @@ academyEffectorPortal.pages.default.dataLinkage = {
    * General
    */
   get playerLevel() {
-    return playerData.level
+    return playerData.general.level
   },
   set playerLevel(value) {
     playerData.general.level = value
   },
 
   get loopsFilled() {
-    return playerData.loopsFilled
+    return playerData.general.loopsFilled
   },
   set loopsFilled(value) {
     playerData.general.loopsFilled = value
@@ -942,9 +942,11 @@ academyEffectorPortal.pages.default.initFunction = function (panel) {
           }
 
           if (text || props.textHtml) {
+            /** @type {string} */
+            const str = `${text || props.textHtml}`
+            if(str.includes('{{ultimaMax}}')) str.replace('{{ultimaMax}}', CalculateUltimaMaxIncrease())
             const textCol = createElement('div', '')
-            const textEl = createElement('span', 'form-text', '', text || '')
-            if (props.textHtml) textEl.innerHTML = props.textHtml
+            const textEl = createElement('span', 'form-text', '', str || '')
             if (props.textId) {
               textEl.id = props.textId
               portalPanel[props.textId] = textEl
@@ -1007,6 +1009,10 @@ academyEffectorPortal.pages.default.updateFunction = function (e) {
       location.reload()
     }
 
+    if (e.target.id?.startsWith('sphere')) {
+      updateUltimaMaximums()
+    }
+
     return
   }
 
@@ -1021,12 +1027,6 @@ academyEffectorPortal.pages.default.updateFunction = function (e) {
       portalPanel.dataLinkage[e.target.id] = parseInt(e.target.value)
     }
     savePlayerData()
-
-    const textLabel = trailerTextForInput(e.target)
-    if (textLabel) {
-      const baseMax = parseInt(e.target.max || 0)
-      textLabel.replace('{{ultimaMax}}', baseMax + CalculateUltimaMaxIncrease())
-    }
 
     if (e.target.id === 'zeusrank') {
       portalPanel['zeusrankrequirement'].innerText =
@@ -1048,6 +1048,12 @@ academyEffectorPortal.pages.default.updateFunction = function (e) {
   savePlayerData()
 }
 
-function trailerTextForInput(elm) {
-  return elm.parentElement.nextElementSibling?.querySelector('.form-text')
+function updateUltimaMaximums() {
+  const increase = CalculateUltimaMaxIncrease()
+  sections.find((section) => section.name === 'Loop Mods').children.forEach((field) => {
+    if (field.text && field.text.includes('{{ultimaMax}}')) {
+      const textElm = document.getElementById(field.id).parentElement.nextElementSibling?.querySelector('.form-text')
+      if (textElm) textElm.innerHTML = field.text.replace('{{ultimaMax}}', increase)
+    }
+  })
 }
