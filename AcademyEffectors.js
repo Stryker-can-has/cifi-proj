@@ -943,10 +943,13 @@ academyEffectorPortal.pages.default.initFunction = function (panel) {
 
           if (text || props.textHtml) {
             /** @type {string} */
-            const str = `${text || props.textHtml}`
+            const str = `${text}`
             if(str.includes('{{ultimaMax}}')) str.replace('{{ultimaMax}}', CalculateUltimaMaxIncrease())
             const textCol = createElement('div', '')
             const textEl = createElement('span', 'form-text', '', str || '')
+            if (props.textHtml) {
+              textEl.innerHTML = props.textHtml
+            }
             if (props.textId) {
               textEl.id = props.textId
               portalPanel[props.textId] = textEl
