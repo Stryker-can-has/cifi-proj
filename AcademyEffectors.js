@@ -357,37 +357,37 @@ const sections = [
     isOuro: true,
     children: [
       {
-        id: 'trait04',
+        id: 'sphere04',
         type: 'checkbox',
         label:
           '<label class="has-tip" data-bs-toggle="tooltip" data-bs-title="Increases Ultima Loop Mods max level by 1">Trait Sphere #04</label>',
       },
       {
-        id: 'trait07',
+        id: 'sphere07',
         type: 'checkbox',
         label:
           '<label class="has-tip" data-bs-toggle="tooltip" data-bs-title="Increases Missions per Mission Completed by x2">Trait Sphere #07</label>',
       },
       {
-        id: 'trait09',
+        id: 'sphere09',
         type: 'checkbox',
         label:
           '<label class="has-tip" data-bs-toggle="tooltip" data-bs-title="Increases Ultima Loop Mods max level by 2">Trait Sphere #09</label>',
       },
       {
-        id: 'trait11',
+        id: 'sphere11',
         type: 'checkbox',
         label:
           '<label class="has-tip" data-bs-toggle="tooltip" data-bs-title="Increases Ultima Loop Mods max level by 2">Trait Sphere #11</label>',
       },
       {
-        id: 'trait12',
+        id: 'sphere12',
         type: 'checkbox',
         label:
           '<label class="has-tip" data-bs-toggle="tooltip" data-bs-title="Increases Ultima Loop Mods max level by 2">Trait Sphere #12</label>',
       },
       {
-        id: 'trait14',
+        id: 'sphere14',
         type: 'checkbox',
         label:
           '<label class="has-tip" data-bs-toggle="tooltip" data-bs-title="Increases Ultima Loop Mods max level by 3">Trait Sphere #14</label>',
@@ -771,6 +771,51 @@ academyEffectorPortal.pages.default.dataLinkage = {
   },
   set sowSireneMats(value) {
     playerData.loopMods.sowSireneMats = value
+  },
+
+  /*
+   * Trait Spheres
+   */
+  get sphere04() {
+    return playerData.traits.sphere04
+  },
+  set sphere04(value) {
+    playerData.traits.sphere04 = value
+  },
+
+  get sphere07() {
+    return playerData.traits.sphere07
+  },
+  set sphere07(value) {
+    playerData.traits.sphere07 = value
+  },
+
+  get sphere09() {
+    return playerData.traits.sphere09
+  },
+  set sphere09(value) {
+    playerData.traits.sphere09 = value
+  },
+
+  get sphere11() {
+    return playerData.traits.sphere11
+  },
+  set sphere11(value) {
+    playerData.traits.sphere11 = value
+  },
+
+  get sphere12() {
+    return playerData.traits.sphere12
+  },
+  set sphere12(value) {
+    playerData.traits.sphere12 = value
+  },
+
+  get sphere14() {
+    return playerData.traits.sphere14
+  },
+  set sphere14(value) {
+    playerData.traits.sphere14 = value
   },
 }
 

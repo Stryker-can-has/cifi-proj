@@ -221,7 +221,8 @@ const getMatBonusFromLoopMod = () => {
     Math.pow(1.05, playerData.loopMods.materialHauling) *
     Math.pow(1 + 0.0002 * playerData.loopMods.looping, playerData.loopsFilled) *
     Math.pow(1 + 0.002 * playerData.loopMods.productivity, playerData.level) *
-    (playerData.ouro.enabled && playerData.loopMods.sekhur5 ? Math.pow(1.25, playerData.loopMods.sekhur5) : 1)
+    (playerData.general.ouroEnabled && playerData.loopMods.sekhur5 ? Math.pow(1.25, playerData.loopMods.sekhur5) : 1) *
+    (playerData.loopMods.sowSireneMats ? Math.pow(1.1, playerData.knox.highScore || 1) : 1)
   )
 }
 
@@ -273,7 +274,6 @@ const getMatBonusFromResearch = () => {
 
 function GetStaticMatBonus() {
   const isOuroEnabled = playerData.general.ouroEnabled
-  const isKnoxEnabled = playerData.general.knoxEnabled
   const zeus = playerData.fleet.zeus
   const ouro = playerData.fleet.ouro
 
@@ -334,6 +334,8 @@ function GetStaticMatBonus() {
     staticMatBonus *= 0.0689 // ouro mat nerf
   }
 
+  staticMatBonus *= Math.max(1, playerData.knox.necrumBonus)
+
   return staticMatBonus
 }
 
@@ -341,7 +343,8 @@ function GetDynamicMatBonus() {
   return Math.pow(
     0.01 * playerData.loopMods.zeusRankBenefits + 1,
     playerData.fleet.zeus.rank.current,
-  )
+  ) *
+    CalculateGadgetMultiplier('extractorDrill')
 }
 
 function GetCurrentMatBonus() {
@@ -382,7 +385,7 @@ function CalculateFarmYields(giveTotal = false) {
         runTime: farmDuration,
         activeTime: farmDuration,
         farmCount: Math.floor(duration / farmDuration) *
-          (playerData.traits.sphere07 ? 2 : 1),
+          (playerData.traits.sphere07 ? GameDB.traits.sphere07.value : 1),
       }
       farms.push(newFarm)
     }
@@ -629,10 +632,20 @@ class ProjectConfig {
 }
 
 function CalculateUltimaMaxIncrease() {
-  const t = playerData.traits
-  return (t.sphere04 ? 1 : 0) +
-    (t.sphere09 ? 2 : 0) +
-    (t.sphere11 ? 2 : 0) +
-    (t.sphere12 ? 2 : 0) +
-    (t.sphere14 ? 3 : 0)
+  return playerData.traits.keys().reduce((sum, sphere) => {
+    const trait = playerData.traits[sphere]
+    if (trait && trait.currency === types.CURRENCIES.ULTIMA) {
+      return sum + GameDB.traits[sphere].value
+    }
+    return sum
+  }, 0)
+}
+
+
+function CalculateGadgetMultiplier(name) {
+  const { type, stepIncrease, tenBonus } = GameDB.gadgets[name]
+  const level = playerData.knox.gadgets[name]
+  if (type === 'mult') return Math.pow(stepIncrease + 1, level) * Math.pow(tenBonus, Math.floor(level / 10))
+  if (type === 'add') return (stepIncrease * level) + (tenBonus * Math.floor(level / 10))
+  throw new Error(`Unrecognized gadget type ${type}`)
 }

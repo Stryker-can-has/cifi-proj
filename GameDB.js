@@ -1,3 +1,11 @@
+const types = {
+  ADD: 'add',
+  MULT: 'mult',
+  CURRENCIES: {
+    ULTIMA: 'Ultima Loop Mods Max',
+    MISSIONS: 'Missions per Mission Complete',
+  },
+}
 let GameDB = {
   version: 3,
   academy: {
@@ -265,6 +273,52 @@ let GameDB = {
         245133, 252137, 253925, 255713, 262866, 264691, 266517, 273818, 275681, 277543, // 150
         284994, 286894, 288794, 296393, 298331, 300268, 308016, 309991, 311965, 319863, // 160
       ],
+    },
+  },
+  gadgets: {
+    extractorDrill: {
+      stepIncrease: .005,
+      tenBonus: 1.35,
+      type: types.MULT,
+      currency: 'Mission Materials',
+    },
+    fragmentMagnet: {
+      stepIncrease: .0001,
+      tenBonus: .0005,
+      type: types.ADD,
+      currency: 'Relic Fragments',
+    },
+  },
+  traits: {
+    sphere04: {
+      value: 1,
+      type: types.ADD,
+      currency: types.CURRENCIES.ULTIMA,
+    },
+    sphere07: {
+      value: 2,
+      type: types.MULT,
+      currency: types.CURRENCIES.MISSIONS,
+    },
+    sphere09: {
+      value: 2,
+      type: types.ADD,
+      currency: types.CURRENCIES.ULTIMA,
+    },
+    sphere11: {
+      value: 2,
+      type: types.ADD,
+      currency: types.CURRENCIES.ULTIMA,
+    },
+    sphere12: {
+      value: 2,
+      type: types.ADD,
+      currency: types.CURRENCIES.ULTIMA,
+    },
+    sphere14: {
+      value: 3,
+      type: types.ADD,
+      currency: types.CURRENCIES.ULTIMA,
     },
   },
 }
