@@ -947,12 +947,11 @@ academyEffectorPortal.pages.default.initFunction = function (panel) {
           }
 
           if (text || props.textHtml) {
-            const str = `${text}`
-            if (str.includes(strings.ULTIMA_REPLACEMENT_TEMPLATE)) {
-              str.replace(strings.ULTIMA_REPLACEMENT_TEMPLATE, initialUltimaMaxIncrease)
+            if (text.includes(strings.ULTIMA_REPLACEMENT_TEMPLATE)) {
+              text = text.replace(strings.ULTIMA_REPLACEMENT_TEMPLATE, initialUltimaMaxIncrease + props.max)
             }
             const textCol = createElement('div', '')
-            const textEl = createElement('span', 'form-text', '', str || '')
+            const textEl = createElement('span', 'form-text', '', text || '')
             if (props.textHtml) {
               textEl.innerHTML = props.textHtml
             }
@@ -1062,7 +1061,7 @@ function updateUltimaMaximums() {
   sections.find((section) => section.name === 'Loop Mods').children.forEach((field) => {
     if (field.text && field.text.includes(strings.ULTIMA_REPLACEMENT_TEMPLATE)) {
       const textElm = document.getElementById(field.id).parentElement.nextElementSibling?.querySelector('.form-text')
-      if (textElm) textElm.innerHTML = field.text.replace(strings.ULTIMA_REPLACEMENT_TEMPLATE, increase)
+      if (textElm) textElm.innerHTML = field.text.replace(strings.ULTIMA_REPLACEMENT_TEMPLATE, increase + field.max)
     }
   })
 }
